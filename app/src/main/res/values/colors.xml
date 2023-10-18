@@ -2,8 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="secondary">#9E6C4C</color>
-    <color name="primary">#1E1E1E</color>
-    <color name="red">#E43131</color>
-    <color name="green">#3FCA4D</color>
+    <color name="secondary">#FF9E6C4C</color>
+    <color name="primary">#FF1E1E1E</color>
+    <color name="red">#FFE43131</color>
+    <color name="green">#FF3FCA4D</color>
+    <color name="grey">#FFC1C1C1</color>
+    <color name="cardBg">#999E6C4C</color>
 </resources>

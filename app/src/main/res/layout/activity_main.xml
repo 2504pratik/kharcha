@@ -1,18 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/helloTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Hello,"
+            android:textColor="@color/secondary"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!--User's name-->
+        <TextView
+            android:id="@+id/nameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/helloTv"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="-10dp"
+            android:text="Pratik"
+            android:textColor="@color/primary"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <!--edit button-->
+        <ImageView
+            android:id="@+id/editBtn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/custom_icon_bg"
+            android:padding="8dp"
+            android:elevation="8dp"
+            android:src="@drawable/ic_edit" />
+
+        <!--Graph-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/graphCard"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="16dp"
+            android:layout_below="@+id/nameTv"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="38dp"
+            app:cardBackgroundColor="@color/primary"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp">
+            <com.example.kharcha.BarGraphView
+                android:layout_margin="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.cardview.widget.CardView>
+
+        <!--Expense List , Recycler view-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/expensesListCard"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_margin="16dp"
+            android:layout_below="@+id/graphCard"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="38dp"
+            app:cardBackgroundColor="@color/primary"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_margin="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </androidx.cardview.widget.CardView>
+
+        <!--Expense overview-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/totalExpenseCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_below="@+id/expensesListCard"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="38dp"
+            app:cardBackgroundColor="@color/primary"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_marginVertical="16dp"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/negativeMoney"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0.00"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@color/red"
+                        android:textSize="36sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/owed_by_you"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"/>
+                </LinearLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_margin="16dp"
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent"
+                    app:dividerColor="@color/secondary"/>
+
+                <LinearLayout
+                    android:layout_marginVertical="16dp"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/positiveMoney"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0.00"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@color/green"
+                        android:textSize="36sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/owed_to_you"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/totalExpenseCard"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="110dp"
+            android:layout_margin="16dp"
+            android:layout_marginEnd="103dp"
+            android:gravity="center"
+            android:text="@string/end_msg"
+            android:textColor="@color/grey"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+</ScrollView>
+
