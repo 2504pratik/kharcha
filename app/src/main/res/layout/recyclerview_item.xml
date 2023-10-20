@@ -2,10 +2,11 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/primary">
+    android:background="@drawable/recyclerview_item_bg">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -13,30 +14,45 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <TextView
+        <LinearLayout
             android:layout_weight="1"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="32sp"
-            android:text="Pizza"
-            android:textStyle="bold"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:maxLines="1"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/person"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textSize="16sp"
+                android:textColor="@color/grey"/>
+
+        </LinearLayout>
 
         <TextView
+            android:id="@+id/date"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/grey"
             android:textSize="24sp"
-            android:text="Today"
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="32sp"
-            android:text="120"
+            android:textSize="24sp"
             android:textStyle="bold"/>
     </LinearLayout>
 

@@ -73,7 +73,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/expensesListCard"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="400dp"
             android:layout_margin="16dp"
             android:layout_below="@+id/graphCard"
             android:layout_alignParentStart="true"
@@ -82,7 +82,9 @@
             app:cardCornerRadius="30dp"
             app:cardElevation="20dp">
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_margin="16dp"
+                android:id="@+id/recyclerView"
+                tools:listitem="@layout/recyclerview_item"
+                android:layout_marginVertical="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </androidx.cardview.widget.CardView>
