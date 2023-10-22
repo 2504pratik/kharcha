@@ -15,7 +15,6 @@ import com.example.kharcha.database.entity.Expense;
 public abstract class KharchaAppDB extends RoomDatabase {
 
     private static KharchaAppDB instance;
-
     public abstract ExpenseDAO getExpenseDAO();
 
     public static synchronized KharchaAppDB getInstance(Context context) {
@@ -29,7 +28,7 @@ public abstract class KharchaAppDB extends RoomDatabase {
         return instance;
     }
 
-    private static RoomDatabase.Callback roomCallBack = new RoomDatabase.Callback() {
+    private static final RoomDatabase.Callback roomCallBack = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
@@ -38,7 +37,7 @@ public abstract class KharchaAppDB extends RoomDatabase {
     };
 
     private static class PopulateDBAsyncTask extends AsyncTask<Void, Void,Void> {
-        private ExpenseDAO expenseDAO;
+        private final ExpenseDAO expenseDAO;
 
         private PopulateDBAsyncTask(KharchaAppDB db) {
             expenseDAO = db.getExpenseDAO();
@@ -46,9 +45,7 @@ public abstract class KharchaAppDB extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            expenseDAO.addExpense(new Expense("Pizza","100","Adi",true,"Oct 19"));
-            expenseDAO.addExpense(new Expense("Pasta","200","Pratik",false,"Sept 19"));
-            expenseDAO.addExpense(new Expense("Travel","300","Adi",true,"Oct 19"));
+            expenseDAO.addExpense(new Expense("title","amount","person",true,"date"));
             return null;
         }
     }

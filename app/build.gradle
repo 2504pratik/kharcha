@@ -3,6 +3,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('/Users/pratik/mykeystore/keystore1')
+            storePassword 'kharcha'
+            keyAlias 'key0'
+            keyPassword 'kharcha'
+        }
+    }
     namespace 'com.example.kharcha'
     compileSdk 34
 
@@ -44,4 +52,7 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    // Recyclerview swipe background
+    implementation 'it.xabaras.android:recyclerview-swipedecorator:1.4'
 }

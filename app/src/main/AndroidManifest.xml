@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Kharcha"
         tools:targetApi="31">
         <activity
-            android:name=".AddExpense"
+            android:name=".AddEditExpense"
             android:parentActivityName=".MainActivity"
             android:exported="false">
             <meta-data
@@ -35,5 +35,4 @@
                 android:value="" />
         </activity>
     </application>
-
 </manifest>

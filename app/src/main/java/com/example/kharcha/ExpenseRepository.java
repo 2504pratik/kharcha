@@ -2,6 +2,7 @@ package com.example.kharcha;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Pair;
 
 import androidx.lifecycle.LiveData;
 
@@ -12,8 +13,8 @@ import com.example.kharcha.database.entity.Expense;
 import java.util.List;
 
 public class ExpenseRepository {
-    private ExpenseDAO expenseDAO;
-    private LiveData<List<Expense>> allExpenses;
+    private final ExpenseDAO expenseDAO;
+    private final LiveData<List<Expense>> allExpenses;
 
     public ExpenseRepository(Application application) {
         KharchaAppDB db = KharchaAppDB.getInstance(application);
@@ -38,7 +39,7 @@ public class ExpenseRepository {
     }
 
     private static class InsertExpenseAsyncTask extends AsyncTask<Expense,Void,Void> {
-        private ExpenseDAO expenseDAO;
+        private final ExpenseDAO expenseDAO;
 
         private InsertExpenseAsyncTask(ExpenseDAO expenseDAO) {
             this.expenseDAO = expenseDAO;
@@ -52,7 +53,7 @@ public class ExpenseRepository {
     }
 
     private static class UpdateExpenseAsyncTask extends AsyncTask<Expense,Void,Void> {
-        private ExpenseDAO expenseDAO;
+        private final ExpenseDAO expenseDAO;
 
         private UpdateExpenseAsyncTask(ExpenseDAO expenseDAO) {
             this.expenseDAO = expenseDAO;
@@ -66,7 +67,7 @@ public class ExpenseRepository {
     }
 
     private static class DeleteExpenseAsyncTask extends AsyncTask<Expense,Void,Void> {
-        private ExpenseDAO expenseDAO;
+        private final ExpenseDAO expenseDAO;
 
         private DeleteExpenseAsyncTask(ExpenseDAO expenseDAO) {
             this.expenseDAO = expenseDAO;

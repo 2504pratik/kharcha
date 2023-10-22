@@ -14,14 +14,14 @@ import java.util.List;
 @Dao
 public interface ExpenseDAO {
     @Insert
-    public long addExpense(Expense expense);
+    void addExpense(Expense expense);
 
     @Update
-    public void updateExpense(Expense expense);
+    void updateExpense(Expense expense);
 
     @Delete
-    public void deleteExpense(Expense expense);
+    void deleteExpense(Expense expense);
 
     @Query("select * from expenses order by expense_id desc")
-    public LiveData<List<Expense>> getAllExpenses();
+    LiveData<List<Expense>> getAllExpenses();
 }

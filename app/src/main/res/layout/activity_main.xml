@@ -8,6 +8,7 @@
     tools:context=".MainActivity">
 
     <RelativeLayout
+        android:layout_marginTop="32dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -31,14 +32,14 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="16dp"
             android:layout_marginTop="-10dp"
-            android:text="Pratik"
+            android:text="User"
             android:textColor="@color/primary"
             android:textSize="32sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <!--edit button-->
         <ImageView
-            android:id="@+id/editBtn"
+            android:id="@+id/addBtn"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentTop="true"
@@ -47,35 +48,17 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="32dp"
             android:background="@drawable/custom_icon_bg"
-            android:padding="8dp"
             android:elevation="8dp"
-            android:src="@drawable/ic_edit" />
-
-        <!--Graph-->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/graphCard"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_margin="16dp"
-            android:layout_below="@+id/nameTv"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="38dp"
-            app:cardBackgroundColor="@color/primary"
-            app:cardCornerRadius="30dp"
-            app:cardElevation="20dp">
-            <com.example.kharcha.BarGraphView
-                android:layout_margin="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </androidx.cardview.widget.CardView>
+            android:padding="8dp"
+            android:src="@drawable/ic_add" />
 
         <!--Expense List , Recycler view-->
         <androidx.cardview.widget.CardView
             android:id="@+id/expensesListCard"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="500dp"
             android:layout_margin="16dp"
-            android:layout_below="@+id/graphCard"
+            android:layout_below="@+id/nameTv"
             android:layout_alignParentStart="true"
             android:layout_marginTop="38dp"
             app:cardBackgroundColor="@color/primary"

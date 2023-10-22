@@ -12,8 +12,8 @@ import java.util.List;
 
 public class ExpenseViewModel extends AndroidViewModel {
 
-    private ExpenseRepository repository;
-    private LiveData<List<Expense>> allExpenses;
+    private final ExpenseRepository repository;
+    private final LiveData<List<Expense>> allExpenses;
 
     public ExpenseViewModel(@NonNull Application application) {
         super(application);
