@@ -46,18 +46,17 @@ public class MainActivity extends AppCompatActivity {
 
         TextView userName = findViewById(R.id.nameTv);
 
-        TextView negativeMoney = findViewById(R.id.negativeMoney);
-        TextView positiveMoney = findViewById(R.id.positiveMoney);
-
         // Recyclerview
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         ExpensesAdapter adapter = new ExpensesAdapter();
-        recyclerView.setAdapter(adapter );
+        recyclerView.setAdapter(adapter);
 
         viewModel = ViewModelProviders.of(this).get(ExpenseViewModel.class);
         // Update recyclerview
+        TextView negativeMoney = findViewById(R.id.negativeMoney);
+        TextView positiveMoney = findViewById(R.id.positiveMoney);
         viewModel.getAllExpenses().observe(this, expenses -> {
             adapter.submitList(expenses);
 
@@ -65,7 +64,13 @@ public class MainActivity extends AppCompatActivity {
             totalNegativeMoney = 0;
             totalPositiveMoney = 0;
             for (Expense expense : expenses) {
+                // Validate amount input
+                if (!isNumeric(expense.getAmount())) {
+                    Toast.makeText(this, "Invalid amount input", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 double amount = Double.parseDouble(expense.getAmount());
+
                 if (expense.getOwedByMe()) {
                     totalPositiveMoney += amount;
                 } else {
@@ -201,6 +206,15 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             Toast.makeText(this, "Expense not added", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean isNumeric(String input) {
+        try {
+            Double.parseDouble(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 }

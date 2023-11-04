@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "184106029838",
+    "firebase_url": "https://kharcha-9d34b-default-rtdb.firebaseio.com",
+    "project_id": "kharcha-9d34b",
+    "storage_bucket": "kharcha-9d34b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184106029838:android:ece1078e97d6110b1c7d5f",
+        "android_client_info": {
+          "package_name": "com.example.kharcha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184106029838-vg4atdv4p3no7emdp46et2u5v46r3kc3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kharcha",
+            "certificate_hash": "f964b4dca7adebc0d89bbd69f4e8f58596da7371"
+          }
+        },
+        {
+          "client_id": "184106029838-96o2j1jked6hu5qgbdpj08v9k707ij0s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTTktR5DQQ0MSvFtl4-AAy5u0lvTU1XzY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184106029838-96o2j1jked6hu5qgbdpj08v9k707ij0s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

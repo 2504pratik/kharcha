@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -154,6 +155,11 @@ public class AddEditExpense extends AppCompatActivity {
         expense.setTitle(titleInput);
 
         String amountInput = amountInputET.getText().toString();
+        // Validate amount input
+        if (!isNumeric(amountInput)) {
+            Toast.makeText(this, "Invalid amount input", Toast.LENGTH_SHORT).show();
+            return;
+        }
         expense.setAmount(amountInput);
 
         String personInput = personInputET.getText().toString();
@@ -184,5 +190,15 @@ public class AddEditExpense extends AppCompatActivity {
 
         setResult(RESULT_OK,data);
         finish();
+    }
+
+    // Validation method for numeric input
+    private boolean isNumeric(String input) {
+        try {
+            Double.parseDouble(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }
