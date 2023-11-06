@@ -8,19 +8,6 @@
     android:background="@drawable/login_page_bg"
     tools:context=".LogInPage">
 
-    <TextView
-        android:id="@+id/introText"
-        android:layout_width="377dp"
-        android:layout_height="161dp"
-        android:layout_marginBottom="48dp"
-        android:text="@string/intro_msg"
-        android:textColor="@color/white"
-        android:textSize="32sp"
-        android:gravity="start"
-        app:layout_constraintBottom_toTopOf="@id/logInBtn"
-        app:layout_constraintEnd_toEndOf="@id/logInBtn"
-        app:layout_constraintStart_toStartOf="@id/logInBtn" />
-
     <Button
         android:id="@+id/logInBtn"
         android:layout_width="0dp"

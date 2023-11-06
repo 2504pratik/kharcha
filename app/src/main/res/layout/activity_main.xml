@@ -85,6 +85,7 @@
             app:cardCornerRadius="30dp"
             app:cardElevation="20dp">
             <LinearLayout
+                android:layout_marginBottom="32dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -151,21 +152,6 @@
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/totalExpenseCard"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="110dp"
-            android:layout_margin="16dp"
-            android:layout_marginEnd="103dp"
-            android:gravity="center"
-            android:text="@string/end_msg"
-            android:textColor="@color/grey"
-            android:textSize="20sp"
-            android:textStyle="bold" />
     </RelativeLayout>
 </ScrollView>
 

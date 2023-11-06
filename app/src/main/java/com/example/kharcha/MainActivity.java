@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.example.kharcha.adapter.ExpensesAdapter;
 import com.example.kharcha.database.entity.Expense;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +46,23 @@ public class MainActivity extends AppCompatActivity {
 
         repository = new ExpenseRepository(getApplication());
 
+        // Setting user name
         TextView userName = findViewById(R.id.nameTv);
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+
+        if (user != null) {
+            String displayName = user.getDisplayName();
+
+            // Extract the first name from the display name
+            String firstName;
+            if (displayName != null && !displayName.isEmpty()) {
+                String[] nameParts = displayName.split("\\s+");
+                firstName = nameParts[0];
+                userName.setText(firstName);
+            }
+        }
 
         // Recyclerview
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
