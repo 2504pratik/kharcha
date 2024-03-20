@@ -12,12 +12,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- Profile Image -->
+        <ImageView
+            android:id="@+id/profileImg"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="2dp"
+            android:layout_marginTop="24dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="8dp"
+            android:scaleType="centerCrop"
+            android:backgroundTint="@color/secondary"
+            android:background="@drawable/custom_icon_bg"/>
+
         <TextView
             android:id="@+id/helloTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/profileImg"
             android:text="Hello,"
             android:textColor="@color/secondary"
             android:textSize="24sp"
@@ -29,8 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/helloTv"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/profileImg"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="-10dp"
             android:text="User"
             android:textColor="@color/primary"

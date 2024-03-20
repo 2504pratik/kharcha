@@ -8,5 +8,6 @@
     <string name="person">Person</string>
     <string name="intro_msg">Managing your finances made easy! Track your expenses, and achieve your financial goals!</string>
     <string name="logInBtnTxt">Log in with Google</string>
-    <string name="default_web_client_id">184106029838-vg4atdv4p3no7emdp46et2u5v46r3kc3.apps.googleusercontent.com</string>
+    <string name="default_web_client_id">184106029838-fu0opirc19nudug4aggtsbgfdgcknmfd.apps.googleusercontent.com</string>
+    <string name="kharcha">K H A R C H A</string>
 </resources>

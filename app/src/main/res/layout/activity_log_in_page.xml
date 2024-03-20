@@ -8,6 +8,19 @@
     android:background="@drawable/login_page_bg"
     tools:context=".LogInPage">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="86dp"
+        android:text="@string/kharcha"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/logInBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Button
         android:id="@+id/logInBtn"
         android:layout_width="0dp"
@@ -17,7 +30,7 @@
         android:textSize="24sp"
         android:backgroundTint="@color/secondary"
         android:text="@string/logInBtnTxt"
-        android:textColor="@color/primary"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
