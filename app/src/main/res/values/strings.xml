@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Kharcha</string>
-    <string name="owed_to_you">owed to you</string>
-    <string name="owed_by_you">owed by you</string>
+    <string name="credit">Credited</string>
+    <string name="debit">Debited</string>
     <string name="end_msg">KHARCHA KAM KAR!</string>
     <string name="title">Title</string>
     <string name="amount">Amount</string>

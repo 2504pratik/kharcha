@@ -123,7 +123,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/owed_by_you"
+                        android:text="@string/debit"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textStyle="bold"
@@ -157,7 +157,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/owed_to_you"
+                        android:text="@string/credit"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textStyle="bold"

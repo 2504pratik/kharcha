@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Canvas;
@@ -34,6 +35,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
@@ -95,11 +97,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        // Register SMS receiver
+        IntentFilter filter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
+        registerReceiver(new SmsReceiver(), filter);
+
         // Request SMS permissions
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_SMS}, SMS_PERMISSION_CODE);
         } else {
-            readPastWeekSMS();
+            readPastMonthSMS();
         }
 
         // Recyclerview
@@ -134,9 +140,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            // Update the TextViews with total expenses
-            negativeMoney.setText(String.valueOf(totalNegativeMoney));
-            positiveMoney.setText(String.valueOf(totalPositiveMoney));
+            // Format to 2 decimal places
+            String formattedNegativeMoney = String.format(Locale.US, "%.2f", totalNegativeMoney);
+            String formattedPositiveMoney = String.format(Locale.US, "%.2f", totalPositiveMoney);
+
+            // Update the TextViews with formatted totals
+            negativeMoney.setText(formattedNegativeMoney);
+            positiveMoney.setText(formattedPositiveMoney);
         });
 
         // Expense add button
@@ -223,36 +233,34 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == SMS_PERMISSION_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "SMS permission granted", Toast.LENGTH_SHORT).show();
-                readPastWeekSMS();
+                readPastMonthSMS();
             } else {
                 Toast.makeText(this, "SMS permission denied", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void readPastWeekSMS() {
+    private void readPastMonthSMS() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS}, SMS_PERMISSION_CODE);
             return;
         }
 
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.WEEK_OF_YEAR, -1);
-        long oneWeekAgo = calendar.getTimeInMillis();
+        calendar.add(Calendar.MONTH, -1);
+        long oneMonthAgo = calendar.getTimeInMillis();
 
         Uri uri = Uri.parse("content://sms/inbox");
         String[] projection = new String[]{"address", "body", "date"};
         String selection = "date > ?";
-        String[] selectionArgs = new String[]{String.valueOf(oneWeekAgo)};
+        String[] selectionArgs = new String[]{String.valueOf(oneMonthAgo)};
 
         try (Cursor cursor = getContentResolver().query(uri, projection, selection, selectionArgs, "date DESC")) {
             if (cursor != null && cursor.moveToFirst()) {
                 SmsReceiver smsReceiver = new SmsReceiver();
                 do {
-                    String sender = cursor.getString(cursor.getColumnIndexOrThrow("address"));
                     String message = cursor.getString(cursor.getColumnIndexOrThrow("body"));
-
-                    if (sender.contains("SBI")) {
+                    if (isBankingSms(message)) {
                         smsReceiver.processSms(this, message);
                     }
                 } while (cursor.moveToNext());
@@ -260,6 +268,16 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("MainActivity", "Error reading SMS", e);
         }
+    }
+
+    // Checking for the SMS is banking or not
+    private boolean isBankingSms(String message) {
+        String lowerCaseMessage = message.toLowerCase();
+        return lowerCaseMessage.contains("a/c") ||
+                lowerCaseMessage.contains("account") ||
+                lowerCaseMessage.contains("credited") ||
+                lowerCaseMessage.contains("debited") ||
+                lowerCaseMessage.contains("upi user");
     }
 
     // Adding new expense or updating an expense
@@ -302,7 +320,7 @@ public class MainActivity extends AppCompatActivity {
 
             Toast.makeText(this, "Expense updated", Toast.LENGTH_SHORT).show();
         } else if (requestCode == EDIT_EXPENSE_REQUEST && resultCode == RESULT_CANCELED) {
-            // Handle the case when editing is canceled
+            // When editing is canceled
             Toast.makeText(this, "Edit canceled", Toast.LENGTH_SHORT).show();
         }
         else {
