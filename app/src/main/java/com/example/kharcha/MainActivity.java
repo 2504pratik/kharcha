@@ -1,8 +1,10 @@
 package com.example.kharcha;
 
+import android.Manifest;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -10,9 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
@@ -42,13 +48,15 @@ public class MainActivity extends AppCompatActivity {
     private double totalNegativeMoney = 0;
     private double totalPositiveMoney = 0;
 
+    private static final int SMS_PERMISSION_CODE = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_Kharcha);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        repository = new ExpenseRepository(getApplication());
+        repository = ((KharchaApplication) getApplication()).getExpenseRepository();
 
         // Setting user name
         TextView userName = findViewById(R.id.nameTv);
@@ -85,6 +93,13 @@ public class MainActivity extends AppCompatActivity {
                         .apply(requestOptions)
                         .into(profileImg);
             }
+        }
+
+        // Request SMS permissions
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_SMS}, SMS_PERMISSION_CODE);
+        } else {
+            readPastWeekSMS();
         }
 
         // Recyclerview
@@ -200,6 +215,51 @@ public class MainActivity extends AppCompatActivity {
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             }
         }).attachToRecyclerView(recyclerView);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == SMS_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "SMS permission granted", Toast.LENGTH_SHORT).show();
+                readPastWeekSMS();
+            } else {
+                Toast.makeText(this, "SMS permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void readPastWeekSMS() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS}, SMS_PERMISSION_CODE);
+            return;
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.WEEK_OF_YEAR, -1);
+        long oneWeekAgo = calendar.getTimeInMillis();
+
+        Uri uri = Uri.parse("content://sms/inbox");
+        String[] projection = new String[]{"address", "body", "date"};
+        String selection = "date > ?";
+        String[] selectionArgs = new String[]{String.valueOf(oneWeekAgo)};
+
+        try (Cursor cursor = getContentResolver().query(uri, projection, selection, selectionArgs, "date DESC")) {
+            if (cursor != null && cursor.moveToFirst()) {
+                SmsReceiver smsReceiver = new SmsReceiver();
+                do {
+                    String sender = cursor.getString(cursor.getColumnIndexOrThrow("address"));
+                    String message = cursor.getString(cursor.getColumnIndexOrThrow("body"));
+
+                    if (sender.contains("SBI")) {
+                        smsReceiver.processSms(this, message);
+                    }
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            Log.e("MainActivity", "Error reading SMS", e);
+        }
     }
 
     // Adding new expense or updating an expense

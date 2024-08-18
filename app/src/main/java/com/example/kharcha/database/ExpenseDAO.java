@@ -14,7 +14,7 @@ import java.util.List;
 @Dao
 public interface ExpenseDAO {
     @Insert
-    void addExpense(Expense expense);
+    long addExpense(Expense expense);
 
     @Update
     void updateExpense(Expense expense);
@@ -22,6 +22,9 @@ public interface ExpenseDAO {
     @Delete
     void deleteExpense(Expense expense);
 
-    @Query("select * from expenses order by expense_id desc")
+    @Query("SELECT * FROM expenses ORDER BY expense_id DESC")
     LiveData<List<Expense>> getAllExpenses();
+
+    @Query("SELECT * FROM expenses WHERE title = :title AND amount = :amount AND date = :date LIMIT 1")
+    Expense findDuplicateExpense(String title, String amount, String date);
 }
